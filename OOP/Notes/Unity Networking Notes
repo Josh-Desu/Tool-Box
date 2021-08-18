@@ -1,0 +1,138 @@
+Unity Networking
+
+Introduction:
+- Import Mirror
+Mirror is a package required for a multiplayer game
+Use URP for good graphics in project template
+Basically how to properly set up a template scene/project and import mirror properly w/out errors
+- Download Mirror from package manager and only need to import mirror folder
+- Other packages needed is ProGrids, Input System, Cinemachine, Probuilder, URP (Comes with URP template), and VSC
+editor if not installed
+Enable preview package so you can see package not shown
+
+Client-Server Model -
+State #1 (Health, player location, input state, etc)
+
+In multiplayer, theres 2 type of connection
+Peer to Peer and Client Server (Peer to Server)
+
+Peer to Peer is really slow because
+You do something as host, you have to tell everyone
+Player X does something, has to relay info to you to relay to everyone else
+Really slow and only recommended for small games with at most 4 players (Usually Coop games w/ 2 players)
+
+Most use client server while casual/fun game use peer to peer
+Client server determines the state of everything so it helps with broadcasting to other players
+and prevents cheating in a way
+
+Host Client which is
+Client Server but a player is the host of a server (Router/Computer as server) rather than
+a dedicated server such as Blizzard COD servers for matchmaking. Think of making a custom game
+where as players create a custom server for friends to play
+So running game client AND server on the machine for others and themselves
+Code works the same as client/server, this just means that the server is hosted on your machine
+as opposed to a dedicated server
+
+In short, we dont want to build peer to peer connection UNLESS we make a small game With
+2 player max. At most we could have is 4 players due to how slow things will run.
+
+Client to Server Connection w/ Host is the most common method since you have a actual server
+that communicates with each clients
+However, since most, if not, all developers don't often have a dedicated server due to cost
+We run Host as our server so our host's machine will be the server along with a host's client
+being able to run the game. This helps ease communication with each different states in the game
+so that players can have a smoother gameplay experience
+
+Network manager -
+Component from Mirror that handles heavy lifting for starting a server connecting clients as whole
+& data transfer
+(Host server & connect clients)
+
+Give player object a network id so network manager can keep track and transfer data related to said
+player data
+
+To build your own network manager off from Mirror
+Add mirror library and inherit from network manager script
+Then build off of that
+
+From client perspective
+Tree of diagram is client connects to server and calls onstartclient, if successful then onclientconnect
+is called
+
+From server perspective
+Client connects = OnServerConnect is called on server
+Once data transfer is ready = OnServerReady is called
+Then player object will be created
+OnServerAddPlayer notifies that player now exists
+
+To override existing behavior off of base/derived networkmanager script
+public override void MethodName(){} //Hit F12 to see the original logic of said method overriding
+
+Now when player is added to the game
+We need to...
+- Override OnServerAddPlayer
+- Call base method
+- Use msg system of some sort
+- Detect how many connected players by using numPlayers from base script
+
+Set up of code
+public override void OnServerAddPlayer()
+{
+  base.???;
+  Debug.Log("Now connected");
+}
+
+Synchronizing variables/data -
+We need to create a seperate object to manage player or network player info to sycnhronize
+This is derived from NetworkBehavior
+Adding this would require NetworkIdentity component from mirror so thats when you know its a network go
+
+Now to change value on server, use [SyncVar]
+
+Having [Server] prevents clients from calling said method unless the server is calling it.
+Similar to self protection or error handling in a way
+
+Synchronizing Callbacks -
+Use callbacks to update and change data to update online
+Step by step process should be...
+Create a method to be used as the callback
+Add a hook to that method using [SyncVar(hook=nameof(method))]
+Make method change data of whatever you need to change
+
+Remote Action -
+Executing logic remotely not on the same machine
+
+Lets call method from client on the server and from the server on the client so we can
+Remote execution logic
+Example is user wants to do something by calling method on server
+CmdDoSomething()
+
+For server to call method on all clients
+RpcDoSoemthing()
+
+To target specific client
+Use
+TargetDoSomething() where it will only execute on a specific client
+
+Calling a method on each client by...
+- Creating a method beginning with Rpc that takes in string or some sort of data
+- Log new data to their console
+- Use [ClientRpc] attribute
+- Call method from server when setting name
+
+Server Authority:
+Basically validation method such as checking names being valid or not before syncing to all clients
+In short, client says what it wants to do and the server decides what the results is
+
+Use this to build a custom validation
+- Default name linked to computer user name
+- 16 name characters
+- No Symbols/special characters
+- No spaces
+- Blacklist words
+
+Network Transform:
+- Updating transform location or gameobject data
+- Either write our own code or use built in component to update
+- Add NetworkTransform to object
+- Create spawn point, we need NetworkStartPosition component

@@ -1,0 +1,193 @@
+Lesson consists of arrays, linkedlist, trees (Not linear)
+
+To build an efficient algorithm we have to find out
+- How much time will the algorithm take to complete its tasks
+- How much memory/space/resources will it take to complete its tasks
+
+We determine efficiency of algorithm by worst case scenario when input size increases
+using BigO
+Example is array is our size of input for most for loops
+Small arrays means less runtime while large means more
+So "Runtime increase with input size"
+
+
+Remember this key information,
+- Stack is reserved memory space while Heap is runtime memory space
+- ADT = Abstract Data Types where it is the math model for data types defined by behavior (Semantics)
+- ADT also means its a blueprint to provide a logical view of data/operations of our code
+- Data struct = Actual representation of data/algorithm for data
+- Time Complexity is important (Check efficiency of algorithm by checking time elapsed)
+- 2 Method to measure runtime, experimental and analytic method
+- experimental means writing algorithm and testing w/ inputs to record run time. generally
+dependent on software/hardware, input, and not good for long time execution
+- Analytical is analyzing runtime based on input size and considering all possible input
+while debating independence of Just ignore the textbook definition and guess/predict time
+
+Reminders about arrays...
+- 0 Index based
+- Possible to create 1 index base but not recommended since its slower than 0 index, not compatible
+to APIs using 0 index, and not CLS compliant in some way. In short, not recommended unless needed.
+- Arrays are reference type
+- Declaring array is stack (Reserved memory) and initializing is heap (Runtime)
+
+Common operations involving arrays...
+- Accessing index directly or through searches
+- Adding elements to front/back of arrays
+- Inserting element at index X
+- Updating/Removing element
+
+The above operations will involve an algorithm of some sort. Meaning there will be time Complexity
+and the efficiency of X algorithm used. Therefore, BigO comes in to help us understand how to read
+out our time complexity of our algorithms.
+
+BigO Notation
+- Depends on input size to provide runtime of algorithms to demonstrate best/worst/avg cases
+- Always interested in worst case due to it being the minimum standard for our scenario.
+(Meaning if we can efficiently retrieve results at worst case, that means we can retrieve better results
+with best case scenario)
+
+Types of category under BigO
+O(1) - Constant
+O(logn) - Log
+O(n) - Linear
+O(nlogn) - Linear log
+O(n^2) - Quadratic
+O(n^3) - Cubic
+O(n^k) - Polynomial
+O(a^n) - Exponential
+
+To break it down...
+Operations | Time Complexity | Comment
+
+Access by index | O(1) - Constant | Know index of array to retrieve meaning complexity is constant
+
+Search Unsorted Array | O(n) - Linear | Implies a for-loop because we don't know which index we need.
+Meaning we have to use a for loop to iterate through an unsorted array using O(n) to find the index
+
+Add element to a full array | O(n) | Needs to be resized
+Since arrays are not dynamic. We get another array with a larger size and copy
+the current array over. Then we add the element afterwards giving us linear time Complexity
+due to copying bunch of elements in many operations
+
+Add elements to array (Array not full) | O(1) | Know index, otherwise its O(n)
+Time complexity of adding is const unless we don't know the index (Aka the first empty slot)
+If not, we use O(n) aka running for loop for linear time
+
+To summarize, knowing index saves time. If not, we get linear search due to having to use a
+for loop.
+Removing operation by setting null vs completing removing element are not the same
+Shifting/resizing array takes linear time due to copying elements while nulling is mostly constant unless
+we don't know index.
+
+Insert/Update w/ index | O(1) if we know index, otherwise its O(n)
+Remove element by null-ing | O(1) if we know index, otherwise its O(n)
+Remove element by shifting | O(n) because we need to resize array and shift element
+
+Remember this...
+Worst case is generally O(N^2)
+AVG case is O(nlogn)
+Best case is O(1)
+Accessing is generally O(1), UNLESS searching for index means O(n)
+And BigO is function of how fast a function f(n) grows as n becomes larger where as n is our input
+With worst and best case. Depending on the scenario, we're generally interested in worst case.
+But if we're just retrieving the fastest algorithm. Then best case is the way to go.
+
+
+Bubble Sorting Algorithm:
+- Swap first 2 element then move up and repeat until list is sorted
+- Generally 99% never used due to poor efficiency but good to know
+- Process involves 2 iterator that compares to element. Moves on and sort (By swapping) next 2 element.
+- Continues till it reaches wall and decrement/reset to beginning and continues until the whole
+list is sorted
+
+Bubble sort algorithm info...
+- Uses small amount of extra memory (Doesn't depend on n)
+- Stable, O(n^2) so quadratic, and degrades quickly
+
+By stable as in stable vs Unstable
+We find a duplicate in an array, the first duplicate found will get sorted before the second duplicate 1.
+The history of the first duplicate is recorded and properly sorted in comparison with the other duplicates
+found in the sorting order.
+This means its stable. Anything else otherwise (Not recording duplicate) is unstable.
+
+Selection Sort Algorithm info...
+- Select Largest/Smallest element to sort First
+- Degrades quickly but faster than bubble sort
+- O(n^2) time complexity (quadratic)
+- Unstable
+- Uses small amount of extra memory (Doesn't depend on n)
+
+Process of selection algorithm is we select the largest/smallest and set it. Then increment/decrement
+the wall
+Example is...
+We select biggest element
+Go through the array/list and assign the biggest index to our temp data. Keep going till we hit
+our wall
+Once we hit the wall, we assign the biggest data to the last index because its the biggest number.
+
+Insertion Sort Algorithm...
+- Set marker at beginning of an array (1st index, not 0 based index so technically second index)
+- Move marker upward and if index+1 is greater than index, we take it out, merge all elements
+before to one index up and then insert the element we took out to the correct sorting
+
+Recursion...
+Function that calls itself
+
+Shell Sort Algorithm...
+- An improved insertion sort algorithm
+- Based on insertion sort
+- Insertion shifts neighbor elements only, so insertion is fast on pre-sorted arrays
+- Basic idea of shell is pre-sort input and switch to insertion. Therefore, sorts array before
+calling insertion sort
+- This lowers gap because gap is used to pre-sort elements to complete insertion of badly placed elements
+therefore reducing swaps distance elements
+- In summary, shell or array starts with a large gap and lowers it. Then calls insertion to
+shrink/sort it even more. When gap = 1 then insertion finishes sorting process
+- If you set gap at 3. Every number within 3 index of the array will be swapped if i is > than i+1
+Meaning 0 vs 3, then 1, 4, then 2, 5, then, 3, 6 and so on. The shell is the outer index of 3
+so it checks the boundary index of 3 or a custom number set by you. And goes on till the end of the arrays
+Afterwards, we call insertion and it quickly finishes the tasks.
+- We can then lower the gap by dividing the custom gap by x number so if we originally had a gap of
+6, we divide it by 2 and itll lower to 3
+- Unstable & inplace algorithm (Doesn't depend on n so uses small amount of memory)
+- Time complexity can be O(n3/2) or otherwise
+
+Merge Sort Algorithm...
+- Divide & Conquer Method
+- 2 phases: Splitting and merging
+- Splitting = Provides an organized way to sequence the merges (More logical way)
+Steps are...
+is Left index < r
+True then do m = leftInfex + (r-1) / 2
+Divide the array into 2 parts
+Once array is divided into smallest elements, merging starts with comparison of elements
+It adds to a seperate list that compares difference so
+1 2 3 4 | 5 6 7 8
+then combined afterwards
+This algorithm is non an in-place algorith, meaning uses much memory (Depending on n)
+Stable and O(nlogn) time complexity aka linearithmic
+
+Quick Sort Algorithm...
+- Divide & Conquer
+- Recursive
+- Splits based on pivots
+- Elements < pivot go to its left VS elements > pivot go to its right
+- Pivots gets into its place in the end of each pass
+- In place algorithm (Doesn't depend on n and uses small amount of memory)
+- theta(nlogn) time complexity (linearithmic)
+Rare cases it'll be O(n^2) time complexity aka quadratic
+- Unstable
+Step by step method of quick sort...
+Since it uses the idea of divide and conquer
+It first finds the element calls pivot which divides array into 2
+Then Left half are smaller than pivot and right is greater as usual
+We then Recursively perform 3 step (Hence why its recursive)
+1 - Bring pivot to position where left pivot and right pivot shows smaller vs larger size
+(In other words, Divide array equally BUT sometimes pivot will be selected as different position
+such as last element or second element of the array)
+2 - Quick sort left AND THEN quick sort right
+https://youtu.be/PgBzjlCcFvc
+
+Linked Lists Section 6:
+Node chain
+Basic building block for data struct

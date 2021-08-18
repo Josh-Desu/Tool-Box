@@ -1,0 +1,46 @@
+Unity Pathfinding Notes
+
+Steering...
+Use Gizmo to see lines drawn of certain object movement
+OnDrawGizmos() is a reserved method of unity library
+Gizmos.color = Color.red; //Makes line red
+Basically detection line
+
+LookAt(target); //Makes gameobject look at target or whatever in parameters
+
+Create a circuit to establish either a circular rotation or a arena barrier
+
+
+Algorithms
+Dijkstra's Algorithm helps with...
+- Finding shortest path
+- Used in social networking app
+- Telephone network
+- Find locations in maps
+
+Its time complexity is 0(ElogV)
+where E = edges and V = vertices
+Space complexity is O(V)
+
+Set initial node and goal node
+Gives/returns the least cost path to the goal node
+Algorithm used in navigator to find least cost path
+Binary heap understanding is required to implement algorithm
+
+BINARY HEAP
+
+Start from Algorithm Dijkstra
+
+A* picks better looking node for next to find shortest pathway between goal and starting node
+Better heuristic, quicker/shorter time A* finds a path
+Any complicated setup may delay it
+Doesn't need to visit all vertices compared to Dikjstra Algorithm
+because Dikjstra visits all nodes before finding shortest algorithm
+
+The process for Dikjstra is similar to A*
+It starts from vertex 0
+List all other vertices from start to infinity
+Repeats process of...
+Visiting unvisited vertex with smallest known distnace from start
+Calculate
+Repeat until all vertices are visited

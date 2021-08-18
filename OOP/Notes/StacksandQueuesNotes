@@ -1,0 +1,83 @@
+Stacks & Queues Notes:
+Stack implementation is a Last in First Out - LIFO
+Also a ADT (Abstract Data Type)
+Types of operations are...
+- Push //Add
+- Pop //Delete
+- Peek //Check last value since it'll be the only one showing on top
+
+The types of references we have are
+Stack - Creates stack itself
+Length - Tells us the size of our stack
+IsEmpty - Tells us our stack is empty
+Peek - Checks element on top of stack (Last added)
+And the type of operations
+Peek is O(1) time complexity and Push/Pop works for O(1) in linked list
+
+If backed/using array,
+Push = O(1) if there is space
+Not enough space will resize array giving us O(N)
+Pop works as O(1) if we never shrink array but O(N) if we are
+
+If we know the max we want to use or not enough memory provided(Elements to push/pop into our stack)
+Use an array!
+If we have lots of memory or max number pushed/popped is not known, then use linked list
+
+If we were to use/test the built in stack implementation from C/C#/C++
+We have to know that it is based on an array
+If we wanted to create a stack based on linkedlist, we have to write it ourselves
+This also goes to say that built in stack will be either O(1) or O(N) because
+Peek/Pop/Clear/CopyTo/TrimExcess operations since we might need to copy current stack to new in order
+to resize if needed
+
+Queues implementation is a first in first out "FIFO"
+The types of operations are
+Enqueue - Adding item to queue
+Dequeue - Removing item from the queue
+Peek - See what is at the front of the queue
+
+Regarding Queue...
+Peeks is O(1) in any case
+But Enqueue/Dequeue will be O(1) for linkedlist and for arrays its mostly
+O(1) or O(N).
+
+We use linkedlist if we have enough memory or max number not known
+Otherwise we use arrays
+
+Our references will be
+Queue, head, tail
+Tail index is the last where it'll move back when adding something while
+head is the top of our queue that'll come out first
+When we Enqueue, we add from tail and move tail back
+When we dequeue, we delete from head and move head back
+
+Now, we'll realize as we dequeue and enqueue many times. Our array always grow rather
+than shifting (Like in stack) so we end up with resizing our array. (Growing in size
+faster than our stack)
+In short, we get an inefficient memory consumption with queue if not implemented without
+taking care of it.
+
+Now, like linked list. We also have Circular Queue
+Circular Queue will solve the issue of inefficient memory usage where we have a growing array
+due to our dequeue and enqueue operations.
+
+A Circular queue is simply a queue that has a cycle like in linked list
+However, we have a condition that checks whether to wrap/unwrap our queue.
+The reason is simple
+Our condition checks if we have space in our queue to add an element IF we have a array size
+of X
+If we add/enqueue a data into our queue and we have space. Then it simply adds to the queue
+The enqueue/dequeue operations goes on.
+The significant thing is if we dequeue, our tail now goes back to reuse that data space reserved for
+our queue. Imagine how overflow works, where if we exceed limit X, then it restarts.
+This case is similar where our queue is full in a way but when dequeued, makes space for future queue.
+So it restarts back to index 0 and queues/dequeues as usual. The problem is when we have an
+array of X and we exceed it.
+Then we have to unwrap our queue and resize our array and then wrap our queue again to have a circular
+queue.
+
+Now talking about Queue using BCL (Base Class Library)
+The same as stack, it is based on arrays instead of nodes AND also circular
+The growth/resize factor is by 4 when needed
+As usual, time complexity is mainly O(1) to O(N)
+for most of its operations

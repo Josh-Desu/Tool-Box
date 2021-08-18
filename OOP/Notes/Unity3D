@@ -1,0 +1,84 @@
+Unity 3D Notes
+
+C# Formatting & Input.GetAxis()
+Checking Input manager in project setting, we can get the name of our input system
+
+To implement a simple controller
+transform.Translate(Input.GetAxis("Horizontal"), yValue, zValue);
+
+Proper way is to store input in a variable and speed
+float xValue = Input.GetAxis("Horizontal");
+Then
+transform.translate(xValue...);
+
+Time.deltatime
+Making things framerate independent
+Use this to get results based on frame independent
+So 10 vs 100 fps
+We want equal results
+use time.deltatime
+
+Cinemachine ???
+Package that allows us to manage...
+- Multiple cameras in our scene
+- Easily create rules for our cameras
+
+We have the main camera by itself
+Attach Cinemachine component aka brain to it
+The logic will determine which camera will be used based on your set of rules
+
+Caching is the definition of storing frequently used data/info in memory so it can be easily accessed
+
+g(n): same as Dijkstra. The real cost to reach a node n.
+h(n): approximate cost from node n to goal node.
+It is a heuristic function. This heuristic function should never overestimate the cost.
+That means, the real cost to reach goal node from node n should be greater than or equal h(n).
+It is called admissible heuristic.
+
+A* vs Dijkstra
+A* is good if you need to scan small areas toward the goal node
+Dijkstra is good if you need to scan large areas toward the goal node
+In short,
+A* is faster compared to Dijkstra because of Best First search
+Where Dijkstra uses Greedy Best First Search
+Major disadvantage of Dijkstra is it does a blind serach by consuming more time/resources
+and cannot handle negative edges
+This leads to Acyclic graphs and can't obtain right shortest path
+It has a order of n2 so its efficient for large problems as we mentioned (Large scanning)
+
+To wrap it up, A* scans the area only in the direction of the goal
+While Dijkstra scans and expand a large area before target is found
+Thats why in Dijkstra we see it scan all nodes before giving us the shortest path available
+While A* just scans the shortest node to node till it reaches the goal node
+
+REMEMBER!
+Dijkstra Algorithm is 0(E log v) Time complexity
+E = Edges and V = vertices
+Space complexity is 0(v)
+
+Our collision tag in our collision parameter returns a string
+When detecting collision and you don't want to have multiple IF statements set such as
+if gameobject.tag = collision of something
+else if...else if...else if...
+Use a switch
+switch(other.gameObject.tag)
+{
+case "tagName":
+break;
+default:
+//Sorry you blew up
+break;
+}
+
+Handling respawns/spawns systems. We can use scene manager as an alternative or a gamemanager
+By scene manager we mean RELOADSCENE with LoadScene(0) as our basic (NOT RECOMMENDED)
+
+
+Invoke and what it is?!?
+Invoke() calls method so it executes after a delay of X seconds
+syntax is
+Invoke("MethodName", delayInSeconds);
+Pros: Quick & easy to use
+Downside is String reference so not as performant as using a coroutine
+
+Regarding multiple audio clips...

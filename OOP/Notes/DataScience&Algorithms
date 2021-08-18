@@ -1,0 +1,408 @@
+Linked List:
+- Dynamic Data struct using nodes
+- Not stored in contiguous memory location making insert/delete easier
+- Useful for ADT such as list, stack, queue
+- Efficient random access isn't Possible
+- Implementation requires memory
+
+Variants of linked lists...
+- Single
+- Double
+- Circular
+- LinkedList w/ Header Nodes
+
+Structure of linkedlist goes...
+- Single list with INFO and LINK
+- Data stored in INFO | link refers to next NODE
+- Last link references nothing and maintains special reference as placeholder (null status)
+- First node = START node and is the identifier/identity of the list
+- Empty Linkedlist means START = null
+
+Remember crucial information...
+LinkedList Link that refers to next NODE gets assigned IF you want to move to next node so
+p=p.link means Assigning the Node to the current node's link which reference the next node on the list
+You can use this to check null condition (Last or no more node ahead) to set exit condition or move onto
+next node if condition not met
+
+Finding references in linked list...
+- Examples include last node, second to last node, node with x info, predecessor of a node with x info, or a node
+at x position
+
+If we want to set a condition that will find the last node of the linked list
+p = start;
+while(p != null)
+{
+  p = p.link;
+}
+You can use this to find size of linked list, last link position, or referencing last node
+If you want to find the second to last node because the last node consist of a null link
+p = start;
+while(p.link.link != null)
+{
+  p = p.link;
+}
+We can continue and find third/fourth/fifth to last node by adding link.link.link
+Basically link.link means the referenced link inside of our current link doesn't = null
+
+To find x info in a linkedlist
+p = start;
+while(p.link != null)
+{
+  if(p.info == x)
+  break;
+  p = p.link;
+}
+
+Now to check info in predecessor node
+(Check data in the next node)
+We have the same setup structure
+p = start;
+while(p.link != null)
+{
+  if(p.link.info = x)
+  {
+    //Do Something
+  }
+  p = p.link;
+}
+To find what the position of the node that consist X data
+we have to set an individual data set such as
+int temp = 1; //Not 0 based index because start exist
+So same structure setup with above data and increment this data until
+the data you want is found
+Then return the position of temp back to display what position data is in linkedlist
+p = start;
+while(p.link != null)
+{
+  if(p.info = x)
+  {
+    break;
+  }
+  else{
+  temp++;
+  p = p.link;
+  }
+}
+You can also use a for loop with 2 condition set
+p != null && i < k where k = size of list in which you must know beforehand
+
+Regarding using while(p.link != null) vs while(p != null)
+p.link means the next link is null so you reached the end while
+p means p is null
+p.link means p reference the last node while p is null because it assigns to the link after null
+which doesn't exist (null) Think of being ahead of the last index or outside the array element
+
+Use p!=null if you want to loop till p == null
+Use p.link != null if you want to loop till p references last node
+NOTE: HUGE DIFFERENCE TO KNOW THESE 2
+
+Insertion of a node in the beginning of a list
+Process begans by...
+- Create new temp node
+- Link temp node to first node position (temp.link = start;)
+- Assign start to temp node (start = temp;)
+DO NOT LINK START first because we will break the link
+Reason is the temp node isn't connected to the current link list meaning it can't find the list
+and will cause an infinite loop
+
+However, if we were to input into a new empty list
+start = temp; where temp is our new node
+
+Adding to the end of a list would be
+- Create temp node
+- last node of p given write p.link = temp;
+
+Inserting node into a list...
+Steps are...
+Create temp node
+Link temp node to the outer index (a < b < c where we link it to c as our outer)
+Then link our inner (a) to our temp node (b)
+This process is for insertion after a node
+
+To insert before node, we have to check with condition of...
+p.link.info
+Therefore, we check the info in the next node and insert from there
+
+To insert at given location, we use for loop condition of...
+i < k - 1 && p != null
+because i is the counter and k is the position so we reference the previous node
+where as it reference the previous node's link which is k the position we want
+
+Deletion in a single linked list...
+We can do thing such as...
+Delete first node, only node, between the list, and end of list
+
+Deleting first node and only node is easy
+Just assign the link of start to the second node to delete the first node
+and for the only node in the list. Just null our start
+
+To delete a node between list, rather than doing the same operation as insertion.
+We delete by assigning
+p.link = p.link.link;
+This means that we assign our counter link (Currently selected or the link before the node
+we want to remove)
+And assign that current selected node's link (Which references the next node) to the next node's link
+Basically saying "Be the next node's link"
+What this does is that it assigns the current node's link to the node after the next node
+making the original next node gone (Deleted)
+
+To delete the last node, we make p.link = null
+
+Reversing single linked list...
+In short, the first node becomes the last node and the last node becomes the first node
+
+In code we have
+Node prev, p, next;
+prev = null;
+p = start;
+while(p!=null)
+{
+  next = p.link;
+  p.link = prev;
+  prev = p;
+  p = next;
+}
+start = prev;
+
+What it does is that we
+p = start
+making it the first node as p
+next = p.link
+making the next node after the first as next
+p.link = prev;
+making it null because prev = null
+prev = p
+making prev = to start because its the previous node "Not a node due to start"
+p = next
+making p = next where next is the 2nd node
+
+The cycle continues until it reaches the last node (p!=null)
+Then we have start = prev; to have our start = to prev where as prev is
+our "last node" aka our first node now that we reversed our single linked list
+
+Sorting a Linked List using Bubble Sort Algorithm...
+Will involve exchanging data/links
+We use 3 temp data
+p q end
+When end refers to the second node, it stops the process
+p = start, q=p.link : Stop when p.link == end
+
+The way it goes is
+P and Q
+P is i
+Q is i+1
+in our array AKA linked list
+end is our flag AKA wall as to what we would use in our array
+We have P and Q compare, then move to check next, then compare again
+Once the first pass is complete, we move the end aka wall down
+Continue this repeat until sorted
+The only thing we need to keep is mind is correctly linking each node without breaking our linked list
+
+Merging 2 sorted linked lists...
+The process starts by first creating a new list then merge by rearranging links
+(Related to merge sorting algorithm)
+
+We have p1 and p2 and pM
+p1 refers to the first node of our first list while p2 refers to our second node of our 2nd list
+We compare our two node and then add smaller value to the new linked list
+The one we added our node to (We add #4 from list 2), we will increment that p so in our case
+itll be p2
+We use pM to create and add a new node to our new list that merges both linked list
+
+Now that this is done, we compare info p1 and p2 where p2 is now incremented
+In short,
+p1 is index 1
+p2 is index 2
+We're comparing node 1 from list 1 and node 2 from list 2
+
+Then we add the conditioned node to the new list and repeat the process
+
+Now, if we were to merge 2 sorted list by rearranging links rather than creating a new linked list
+p1 is our index counter for our first list
+p2 is the same but for second list
+
+We have a new data called "startM" where it references the first node of merged list
+Take pM and assign it startM
+pM = startM;
+This will always refer to newly inserted node of merged list
+
+The way this works is combining 2 linked list by
+linking both list together as One
+so if p1 and p2
+p1 is > p2
+startM -> node
+When doing this, we'll have a broken linked list if nothing is referencing it.
+Therefore we have p2 referencing the list that got disconnected to make
+startM -> node
+
+the linked list will have a line crossing to connect to each other
+p1 will hold the broken linked list if needed for the first linked list
+Same goes with p2
+while pM is our front/tip of our merged/sorted list
+with StartM being the "start" of our merged list
+
+Now to Divide a linked list
+We have P and q as a data type
+
+Syntax code of...
+Node q = p.link.link;
+while(q!=null && q.link!=null)
+{
+p = p.link;
+q=q.link.link;
+}
+Node start2 = p.link;
+p.link = null;
+p is our lowest end
+q will reach the null link of our last node
+p will be the dividing point of our link list
+At p, we make our node's link null and assign a start2 to the following node
+This is how we split our linked list (Divide our list)
+
+To remove a cycle in linked list
+Understand this..
+
+Hare and tortoise Algorithm
+Visited flag in each node
+
+Floyd's Cycle detection algorithm
+We take 2 references
+- 1 slow reference and 1 fast
+- slow move 1 node / fast moves 2 nodes at a time
+If a list doesn't have a cycle, this means null terminated and will never meet
+
+WHAT IS A CYCLE IN LIST??? Research before starting double linked list
+Cycle will cycle the linked list by reiterating the linked list (Last node points to X node)
+Similar to recursive functions in a way
+
+We know that a linked list includes a cycle if the last node doesn't have null terminated
+at the end
+
+1 solution to find a cycle in a list is set a flag on each node
+and set to true when visited
+If we don't want to do this, we can use the
+Hare and Tortoise Algorithm AKA FLoyd's Cycle Detection Algorithm
+
+In this algorithm we take 2 references, one slow and one fast
+We have 1 node move 1 node and the fast move 2 node at a time
+A list with a cycle will have both node meet at some point
+Without a cycle, they will never meet
+
+With these two references, they help determine if a list have a cycle because we can't
+possibly tell if a list have a cycle if we hunt for the last node to see if link != null
+Therefore, having this 2 references help easily determine if a cycle exist
+
+Now that we found out a cycle exist, we find the length of our cycle by
+fixing 1 of our referencing and moving our other reference until they meet (Basically counting
+each node till it meets each other)
+
+Once we get the length of our Cycle
+We need to find the length of our list (Whole linked list)
+We do this by Setting P back to the first node and keep q still
+
+When finished, we should have
+LengthCycle = X //Cycle size
+LengthRemainingList = Y //Nodes outside of our cycle
+LengthList = Z //Total list size
+
+Now to remove the cycle from our list
+We set a reference and count the length of our list to get to our last node
+Then set that link to null to delete our cycle
+
+Now to insert a cycle, we do the same step just before but this time the link will already
+be null.
+We set that link = to node
+We have a reference searching for X in a specific node
+When found we can set the cycle to that starting point so itll look like
+while(p != null)
+//Do something
+if(p = null)
+p.link = px where px is the data we searched for
+
+WHAT IS A DOUBLY LINKED LIST
+In a doubly linked list, its similar to single linked list where double has 3 parts...
+- Info (Just like single)
+- 2 link (Like single but twice the link)
+
+The reason is that doubly can go backwards on the list while single can only go forward
+This gives doubly linked list an advantage of traversing both direction
+Implementation of operations can be easier compared to single list meaning insertion or deletipn
+will be single reference instead
+
+The disadvantages are...
+Extra space required (obviously) and extra steps required to maintain previous link
+
+The setup is the first node, the left (Previous) link is null because theres no other node before
+since the start node is there
+And the last node is obviously null
+
+Insertion in Doubly linked List
+Now to insert into a doubly linked list we can either insert at...
+- Beginning of the list
+- an empty list
+- end of the list
+- between nodes
+
+To insert in the beginning as a first node
+We allocate a new node (Create)
+Next link of that node should reference the first node in the list
+In short, it should reference to the "previous" link of the first node in the list
+Now because this is a double linked list, meaning we can traverse backward
+We also have to link that "previous" node of the original first node in our list to our temp node
+Then the start should reference the "previous" link of that temp node
+
+For a new empty list
+We simple create a temp node
+link start to that node
+
+Insertion at the end of our list will require
+a reference to our last node of our list aka p
+
+Create a temp node and link our last node's "next" link to our temp node "previous" link
+Do this by linking last node to temp node
+Then temp node "previous" to last node "next"
+We have to do it for both due to doubly linked list, otherwise single would just p.link = temp;
+Example of code would be
+p.link = temp;
+temp.prev = p;
+With p being our last node
+
+Now to add a node after p node
+create a temp node
+temp.prev = p (node itself)
+temp.next = p.next; //p's link so the next node after p
+p.next.prev = temp; //Telling the next node to double link previous node to temp node
+p.link = temp;
+
+Now if we were to insert before p node
+Create a temp node
+temp.prev = p.prev
+temp.next = p
+p.prev.next = temp;
+p.prev = temp;
+
+Notice that the 2 recent operations, we first managed the nodes outside of our p node to
+access/change the previous/next node (p.prev.next or p.next.prev) before cutting access to them
+by linking our p to our temp node
+
+Deletion from Doubly Linked List
+We can implement a delete operation by...
+- First node
+- only node
+- between list
+- Last node
+
+For first node...
+start = start.next //Assign start to the next node of first node after start
+start.prev = null //cutting the node's "prev" off
+
+Only node would just be start = null
+Just think logically on how to properly set up links without breaking it until needed when
+deleting or adding nodes
+
+To reverse a linked list, basically reverse the cycle of each doubly link and then set start
+to last node
+
+Circular Linked list are just a list with cycle
+WITH a reference to the last node incase changes is necessary
+So if we decided to insert or delete in a Circular list
