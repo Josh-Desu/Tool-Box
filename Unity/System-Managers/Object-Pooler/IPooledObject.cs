@@ -11,5 +11,5 @@ using UnityEngine;
 
 public interface IPooledObject
 {
-    void OnObjectSpawn();
+    void OnObjectSpawn(); //For start method only, replace private void Start() with public void OnObjectSpawn() and add ", IPooledObject" after monobehavior
 }

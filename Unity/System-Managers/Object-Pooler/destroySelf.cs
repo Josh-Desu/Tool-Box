@@ -14,35 +14,48 @@ using UnityEngine;
 public class destroySelf : MonoBehaviour
 {
     [Header("Destruction Settings:")]
-    public bool ManualControl = false;
-    public float destructTimer = 1.0f;
-    private bool calledTimer = false;
+
+    public float timer = 1.0f;
+    public bool disableObject = false;
+    public bool destroyObject = false;
+    
+    private bool readyState = false;
+
+    private void Awake()
+    {
+        //readyState = false;
+    }
+    private void Start()
+    {
+        StartCoroutine(startTimer());
+    }
     private void Update()
     {
-        if(ManualControl == true && calledTimer == true)
+        checkLoad();
+    }
+    //Destroy gameobject in scene to keep low load
+
+    public void checkLoad()
+    {
+        if(disableObject == true && readyState == true)
         {
-            delayDestruct(destructTimer);
+            gameObject.SetActive(false);
+        }
+        else if(destroyObject == true && readyState == true)
+        {
+            Destroy(gameObject);
+        }
+        else if(disableObject == true && destroyObject == true)
+        {
+            Debug.Log("Error in destroy/disable, more than 1 option selected...");
+            return;
         }
     }
 
-    //Destroy gameobject in scene to keep low load
-    public void Destruct()
+    //StartCoroutine(MethodName());
+    IEnumerator startTimer()
     {
-        Destroy(gameObject);
-    }
-
-    public void delayDestruct(float a)
-    {
-        Destroy(gameObject, a);
-    }
-
-    //Destruct components 
-    private void DestructC()
-    {
-        Destroy(gameObject);
-    }
-    private void delayDestructC(float a)
-    {
-        Destroy(gameObject, a);
+        yield return new WaitForSeconds(timer);
+        readyState = true;
     }
 }

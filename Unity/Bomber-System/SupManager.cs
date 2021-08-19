@@ -18,7 +18,6 @@ public class SupManager : MonoBehaviour
 {
     private FlightMovement mvntData;
     private AttackSystem atkSytm;
-    private destroySelf dS;
 
     //Calls to destroy gameObject on exit state
     [Header("Destruct timer on exit state:")]
@@ -33,7 +32,6 @@ public class SupManager : MonoBehaviour
     {   
         //Initiate data
         mvntData = GetComponent<FlightMovement>();
-        dS = GetComponent<destroySelf>();
         atkSytm = GetComponent<AttackSystem>();
     }
 
@@ -48,7 +46,7 @@ public class SupManager : MonoBehaviour
 
         if (isCompleted == true && startClearing == false)
         {
-            dS.delayDestruct(destructTimer);
+            Destroy(gameObject, destructTimer);
             startClearing = true;
         }
     }
