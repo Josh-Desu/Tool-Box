@@ -1,0 +1,57 @@
+Heap & Heap Searching/Sort:
+- Special case of binary tree
+- Binary Tree needs to be complete
+- Max heap is parent >= children (Think of greater nodes value at top of tree while less is at bottom of the tree)
+- Min heap is parent <= children
+- Implemented as arrays
+- Must be "Heapifying" aka process of converting binary tree into heap (Happens at inertion & removal)
+- No condition between siblings
+
+For array implementation of heap, the index 0 holds the root
+and put values at each level from left to right into an array sequentially
+
+Formula for finding Left, right, and parent node of the array Heap
+Left = 2i+1
+Right = 2i+2
+Parent = (i-1) / 2
+
+Insertion Process of a binary tree and heapifying
+When inserting something like "N"
+We have to add it to the end of our array and tree
+When doing so, it will most likely be out of order meaning the heap is no longer a heap and just a binary Tree
+Therefore, we need to use above formula to compare < or > to see if the node is greater or less to
+swap positions to sort it out to "heapifying" our tree
+
+Removal Operation from Heap binary tree:
+- We need a replacement for the item thats going to be removed
+to keep the tree complete. So we take the rightmost value
+Then heapify...
+If replacement > parent -> fix upwards (Swim)
+Otherwise if replacement < parent -> fix downwards (sink)
+
+Swim goes up tree
+Sink goes down tree
+
+So removing index X
+We first overwrite the last item of our index (Array)
+The last item of our array is now the replacement for the removed item at index X
+Due to sorting reasons to keep our tree a heap. Its unsorted and no longer a heap,
+therefore, we need to heapify our tree again by sorting C with the formula we learned
+index X is less that the parent node so (SINK) instead of swim
+To sink, we need to compare against its children of index X
+and swap with the largest
+
+To wrap it up...
+The heap performance time complexity is
+Insert operation = O(log(n))
+Remove Max/Min = O(log(n))
+Peek = O(1) because we know the index we just need to conduct the operation and not need input size
+
+Heap Sort Algorithm:
+- Based on the concept of "heap"
+- Random input has to be converted into heap first
+
+Sieve of Eratosthenes:
+An oldest algorithm to generate a sequence of prime numbers
+Prime numbers only divisible by 1 and itself
+"Sieve" filters all numbers except prime #

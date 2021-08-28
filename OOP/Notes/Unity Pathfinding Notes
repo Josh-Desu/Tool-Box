@@ -44,3 +44,55 @@ Repeats process of...
 Visiting unvisited vertex with smallest known distnace from start
 Calculate
 Repeat until all vertices are visited
+
+Navmesh allows us to implement A*
+Regarding navmesh and A*, Navmesh is good for enemies chasing players with moving obstacles nearby because
+it can update its path regarding obstacles in front while A* will target and move based on its searched path
+Both has their advantages and disadvantages so research accordingly
+
+Two types of carving around obstacle on navmesh
+Static gameobject vs Nav Mesh Obstacle Component
+Static gameobject is usually for something that doesn't often move while navmesh component should be for
+something that often doesn't stay in place
+A good comparison is a building on a map (static) vs a barrel/crate player/ai will walk by (component)
+So use Carve option in Nav mesh obstacle component on moving obstacles if needed
+as it actually redirects the playerObject destination line around the moving obstacle Like active A*
+while OFF state will just enable steering on object avoidance measure
+
+You can have navmesh agent and navmesh obstacle (Moving) to create a patrol state.
+However, not recommended as its better to have a FSM (Finite state machine instead)
+
+Having different areas (Sand and regular floor)
+If the cost to traverse through is too costly, then the pathway will redirect around it instead
+of through it since it would be too costly to go through.
+
+Mesh Links are similar to 2 platform where player jumps from 1 to another
+We can set the Drop height and jump distance in navigation inspector
+
+For mesh links regarding things such as ladders or climbing stuff with seperate mesh.
+We have to add the links manually
+- First disable off mesh links (Understand what this is)
+- Add "Off Mesh Link" component
+- Activate Bi directional if you want direction to be both ways
+- Activate pretty much every option and set proper type of action in component settings
+- To set the speed for this specific "ladder" or anything you create for this
+We have to create our own script to adjust accordingly when condition met.
+Simple method is
+void AdjustNavSpeed()
+{
+if(nav.isOnOffMeshLink)
+{
+if(nav.nextOffMeshLinkData.offMeshLink != null)
+{
+nav.speed = normalSpeed / nav.nextOffMeshLinkData.offMeshLink.costOverride;
+}
+else
+{
+nav.speed = normalSpeed * 0.5f;
+}
+}
+else
+{
+nav.speed = normalSpeed;
+}
+}

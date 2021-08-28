@@ -191,3 +191,134 @@ https://youtu.be/PgBzjlCcFvc
 Linked Lists Section 6:
 Node chain
 Basic building block for data struct
+
+Binary Search Algorithm:
+Similar to our previous algorithm we learned (Divide and conquer)
+But data must be sorted before searching
+The way binary search function is they...
+- Take element from middle and compares it to search value (Wanted data)
+- If equal, then done. But if < (less) OR < (greater).
+It searches the side of the array acordingly.
+Example is if the element is less than middle value, it
+searches the left side of the element in the array
+Its more complex than linear search
+Time complexity is log(n) steps
+
+An iterative approach example below
+Syntax of binary search is...
+
+public class searching
+{
+  public static int BinarySearch(int[] array, int value)
+  {
+  int low = 0;
+  int high  = array.Length;
+
+  while(low < high)
+  {
+  int mid = (low + high) / 2;
+
+  if(array[mid] == value)
+  {
+  return mid;
+  }
+  if(array[mid] < value)
+  {
+  low = mid + 1;
+  }
+  else
+  {
+  high = mid;
+  }
+  }
+  return -1;
+  }
+}
+
+
+Recrusive Section:
+Recursive is dividing a problem into smaller parts to solve
+In technical terms, its a method that calls itself
+Recursive has 2 phases, winding and unwinding phase
+
+Winding Phase is...
+- Recrusive method called for the first time
+and continues with each call.
+Once the base case is reached and stops, it switches to
+unwinding phase
+Unwinding phase is...
+- When base case is reached and all instance of recursive
+returns in reverse order
+Stops when first instance of recursive method returns
+(Where recursive first started its call/wind phase)
+
+We can use recursive for factorial numbers and print # from 0/1 to N
+For 0/1 to N, we set the action after our recursive call
+
+You can also set a sum of a number so if you want to find
+a sum of 12345 where it adds 1 + 2 + 3 + 4 + 5. This is possible within
+recursive functions
+
+Another use is getting decimal to Binary, Octal, or Hexadecimal
+
+An important key note is using Euclids and Fibonacci Algorithms
+Euclids algorithm is GCD(b, a%b) in recursive
+Syntax:
+int GCD(int a, int b)
+{
+if(b==0)
+return a;
+return GCD(b, a%b);
+}
+
+Regarding Fibonacci series,
+int fib(int n)
+{
+if(n==0)
+return 0;
+if(n==1)
+return 1;
+return fib(n-1) + fib(n-2);
+}
+//Where we set the max term we want it to count to
+
+Another thing is Tail Recursive Methods:
+Tail recursion is if a last statement executed inside the method
+So the recursive method is executed as the last statement
+in our recursive method rather than another (Like console.write for sum of a num)
+It can also be part of an condition logic (if statement) if you wanted it to be
+This means there is nothing to be done in the unwinding phase so it keeps unwinding and continues
+Imagine print from number 1 to n
+Instead, itll print from n to 1 or 0
+
+In the end, we see Iteration VS recursion
+Iteration is...
+- Repitition occurs when block of code finishes or continue is encountered
+- Var inside loops are modified using update
+- Termination condition and loop proceeds in such way that this condition becomes true at some points
+- no time or memory overhead
+- Iterative algorithm are harder to implement
+
+Recursive is...
+- Method that calls itself
+- New valyes passed as params to recurisve methods
+- Recursive proceeds in such ways where we will reach a base case eventually (As iterative does)
+- Pushing/popping records
+- Simplifies code and makes it compact compared to iteration messy code
+
+In short, recursive can help us solve...
+- Factorial numbers
+- Sum of XXXX numbers
+- Get Binary, Octal, and Hexadecimal
+- Finding nth power of a number so X^n = X * X * X * X... (6^3 = ?)
+- Euclids Algorithm to find GCD (Greatest common divisor)
+- Fibonacci Series where we find the sum of 2 # before it
+- Tower of Hanoi (Balancing unsorted disk to sort it from large to small or opposite)
+
+Radix Sorting Algorithm:
+Sorting digit by digit with least significant digit -> most significant digit
+Pass 1 is sorted by units digits (least significant)
+Pass 2 is sorted by tens digits
+Pass 3 is sorted by 100 digits
+Last pass is elements are sorted according to their most significant digits
+They are added to a queue to be saved and sorted

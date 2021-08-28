@@ -1,0 +1,35 @@
+Binary Trees:
+Each elements of a tree is called a NODE
+Lines connecting each nodes are called EDGE
+The predecessor of a node is called PARENT NODE
+An successor of a node is called a CHILD NODE
+The node (Usually at the very top) that doesn't have any parent is called the ROOT NODE
+A node that is a successor and doesn't have any child is called a LEAF NODE
+
+To state the distance from X node from the root node, we call it levels
+(Similar to how we have floors to lobby of a building. Floor 11 = 11 floors from lobby)
+To state the total levels we have for reference, we call it HEIGHT.
+Height of X tree is 4 meaning theres 4 levels to cross
+
+Siblings are 2+ nodes that has the same parent
+  S
+|   |
+F   H
+F and H are sibling because their parent node is S
+
+Path = Sequence of nodes N1, N2,... Nx of a pathway to X node
+Ancestor = A parent/Subparent for all below nodes of their tree
+Above example, S is Ancestor for F and H. If there is another node above S, it is the Ancestor of S, F, and H.
+And if there is any nodes below F or H, that would mean F or H is an ancestor of said node
+
+Binary Search is log(n) for its operation
+Formatting of how nodes are in trees
+Left child < parent node < right child
+
+In BST (Binary Search Tree), removing nodes or remove operation requires 3 types of case
+Node is a leaf, or has 1 child, or has 2 child
+Removing leaf is easy and simple as we just remove that leaf
+Removing node with 1 child makes that child a replacement for the node that was removed
+But for removing 2 child node.
+We have to take the max from left subtree and replacement has no children
+Basically rearranging that sub tree and the subtree above to sort out the nodes properly

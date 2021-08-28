@@ -1,0 +1,25 @@
+Symbol Tables in C#:
+- Fast access to info required for condition nowadays
+- Fast insertion/retrieval
+- Tables allows us to add value using key then retrieve data with that "unique key"
+- Often referred as "Dictionaries" due to keys/values
+
+key doesn't have to be an int
+Consists of key/value pairs where key is unique key and value is data
+4 ways to implement...
+3 competitive ways and 1 simple/basic way
+Linkedlist, parallel arrays, balance binary tree, and hash tables
+
+Simple API to remember how it works
+A default constructor to past custom keys for new or search purposes
+bool TryGet to return true/false when searching for key to be found
+Add method will insert key value-pair into tables
+bool remove will remove key value-pair
+Contain method will check if key presented in table
+And the usual basic functions such as delete, count, is empty
+Also IEnumerable to return all keys from a table
+
+BCL Dictionaries is fast but not capable of supporting specific operations that customers may want
+So for instance
+Ordered symbols tables support special features
+Which are not available in unordered symbol tables (Dictionaries built in BCL aka default libraries)

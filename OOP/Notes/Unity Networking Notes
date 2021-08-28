@@ -136,3 +136,14 @@ Network Transform:
 - Either write our own code or use built in component to update
 - Add NetworkTransform to object
 - Create spawn point, we need NetworkStartPosition component
+
+New additional notes:
+[Server]/[Client] tags can be used for server-only and client-only parts
+[Command] are used for Client->server communication
+[ClientRpc] / TargetRpc] Server->Client communication
+[SyncVar] and SyncLists are used to auto synchronize state
+
+NOTE:
+Spawning Unit section is good for a command base (HQ) for rts start like C&C
+
+For unit selected lesson, instead of a circle sprite. We'll have their health bar show up like in C&C
